@@ -1,7 +1,5 @@
 {
   "name": "ionic-dictionary-app",
-  "integrations": {
-    "capacitor": {}
-  },
+  "integrations": {},
   "type": "react"
 }
