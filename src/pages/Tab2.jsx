@@ -17,8 +17,8 @@ const Tab2 = () => {
     setAnimatedClass("animate__slideOutRight");
     const result = searchTerm !== "" ? await searchWord(searchTerm) : undefined;
 
-    setTimeout(() => setSearchResult(result === undefined ? "none" : result), 100);
-    setTimeout(() => setAnimatedClass("animate__slideInLeft"), 200);
+    setTimeout(() => setSearchResult(result === undefined ? "none" : result), 250);
+    setTimeout(() => setAnimatedClass("animate__slideInLeft"), 250);
 
     WordStore.update(s => { s.searchCount++ });
   }
