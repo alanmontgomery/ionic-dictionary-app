@@ -12,7 +12,7 @@ export const searchWord = async (word, returnOne = true) => {
 
 export const fetchPopularWords = async () => {
 
-    const words = ["ionic", "framework", "mobile", "applications"];
+    const words = ["mobile", "applications", "ionic", "framework"];
 
     words.forEach(async word => {
 

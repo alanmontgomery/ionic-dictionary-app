@@ -1,14 +1,21 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
-import { useState } from 'react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar, useIonViewWillLeave } from '@ionic/react';
+import { useState, useRef } from 'react';
 import { NoSearch } from '../components/NoSearch';
 import { NoResultsWordCard, WordCard } from '../components/WordCard';
 import { searchWord } from '../utils';
 
 const Tab2 = () => {
 
+  const pageRef = useRef();
   const [ searchTerm, setSearchTerm ] = useState("");
   const [ searchResult, setSearchResult ] = useState(false);
   const [ animatedClass, setAnimatedClass ] = useState("animate__slideInLeft");
+
+  useIonViewWillLeave(() => {
+
+    setSearchResult(false);
+    setSearchTerm("");
+  });
 
   const performSearch = async () => {
 
@@ -23,7 +30,7 @@ const Tab2 = () => {
   }
 
   return (
-    <IonPage>
+    <IonPage ref={ pageRef }>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Search</IonTitle>
@@ -49,7 +56,7 @@ const Tab2 = () => {
 
           { (searchResult && searchResult !== "none") && 
             
-            <WordCard word={ searchResult } animatedClass={ animatedClass } /> 
+            <WordCard word={ searchResult } animatedClass={ animatedClass } pageRef={ pageRef } /> 
           }
 
           { (searchResult && searchResult === "none") && 

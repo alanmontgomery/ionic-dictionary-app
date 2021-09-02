@@ -1,7 +1,27 @@
-import { IonBadge, IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonIcon, IonNote, IonRow } from "@ionic/react";
+import { IonBadge, IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonIcon, IonNote, IonRow, useIonModal } from "@ionic/react";
 import { checkmarkCircleOutline, chevronForward, closeCircleOutline } from "ionicons/icons";
+import WordModal from "./WordModal";
 
-export const WordCard = ({ word, animatedClass }) => {
+export const WordCard = ({ word, animatedClass, pageRef }) => {
+
+  const closeModal = () => {
+
+    hideModal();
+  }
+
+  const openModal = () => {
+
+    showModal({
+      presentingElement: pageRef.current,
+      onDidDismiss: hideModal
+    });
+  }
+
+  const [showModal, hideModal] = useIonModal(WordModal, {
+
+    dismiss: closeModal,
+    word
+  });
 
   return (
     <IonRow className={ `animate__animated animate__faster ${ animatedClass }` }>
@@ -12,7 +32,12 @@ export const WordCard = ({ word, animatedClass }) => {
             <div className="ion-padding-bottom ion-padding-top">
               { word.meanings && word.meanings.map((meaning, index) => {
 
-                return <><IonBadge key={index} color="primary">{ meaning.partOfSpeech }</IonBadge>&nbsp;</>;
+                return (
+                  <span key={ index }>
+                    <IonBadge color="primary">{ meaning.partOfSpeech }</IonBadge>
+                    &nbsp;
+                  </span>
+                );
               })}
             </div>
             <IonNote color="white">{ word.origin }</IonNote>
@@ -37,7 +62,7 @@ export const WordCard = ({ word, animatedClass }) => {
 
             <IonRow>
               <IonCol size="12">
-                <IonButton color="primary" expand="block">
+                <IonButton color="primary" expand="block" onClick={ openModal }>
                   View&nbsp;<IonIcon icon={ chevronForward } />
                 </IonButton>
               </IonCol>

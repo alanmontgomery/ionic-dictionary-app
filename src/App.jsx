@@ -9,7 +9,7 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, search, square, statsChart, statsChartOutline, triangle } from 'ionicons/icons';
+import { ellipse, heart, search, square, statsChart, statsChartOutline, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -53,9 +53,9 @@ const App = () => {
             <Route exact path="/search">
               <Tab2 />
             </Route>
-            {/* <Route path="/tab3">
+            <Route path="/favourites">
               <Tab3 />
-            </Route> */}
+            </Route>
             <Route exact path="/">
               <Redirect to="/dashboard" />
             </Route>
@@ -63,11 +63,12 @@ const App = () => {
           <IonTabBar slot="bottom">
             <IonTabButton tab="dashboard" href="/dashboard">
               <IonIcon icon={ statsChart } />
-              <IonLabel>Dashboard</IonLabel>
             </IonTabButton>
             <IonTabButton tab="search" href="/search">
               <IonIcon icon={ search } />
-              <IonLabel>Search</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="favourites" href="/favourites">
+              <IonIcon icon={heart} />
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

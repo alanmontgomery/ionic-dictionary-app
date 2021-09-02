@@ -1,14 +1,18 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useStoreState } from 'pullstate';
+import { useRef, useState } from 'react';
+import { WordCard } from '../components/WordCard';
 import { WordStore } from '../store';
 import { getPopularWords } from '../store/Selectors';
 
 const Tab1 = () => {
 
+  const pageRef = useRef();
   const popularWords = useStoreState(WordStore, getPopularWords);
+  const [ animatedClass, setAnimatedClass ] = useState("animate__slideInLeft");
 
   return (
-    <IonPage>
+    <IonPage ref={ pageRef }>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Dashboard</IonTitle>
@@ -23,13 +27,7 @@ const Tab1 = () => {
 
         { popularWords.map((word, index) => {
 
-          const audioElement = new Audio(`https:${ word.phonetics[0].audio }`);
-
-          return (
-            <>
-              <IonButton color="primary" onClick={ () => audioElement.play() }>Play</IonButton>
-            </>
-          );
+          return <WordCard key={ index } word={ word } animatedClass={ animatedClass } pageRef={ pageRef } />;
         })}
       </IonContent>
     </IonPage>
