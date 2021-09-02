@@ -1,7 +1,8 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar, useIonViewWillLeave } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
 import { useState, useRef } from 'react';
 import { NoSearch } from '../components/NoSearch';
 import { NoResultsWordCard, WordCard } from '../components/WordCard';
+import { WordStore } from '../store';
 import { searchWord } from '../utils';
 
 const Tab2 = () => {
@@ -9,24 +10,17 @@ const Tab2 = () => {
   const pageRef = useRef();
   const [ searchTerm, setSearchTerm ] = useState("");
   const [ searchResult, setSearchResult ] = useState(false);
-  const [ animatedClass, setAnimatedClass ] = useState("animate__slideInLeft");
-
-  useIonViewWillLeave(() => {
-
-    setSearchResult(false);
-    setSearchTerm("");
-  });
+  const [ animatedClass, setAnimatedClass ] = useState("");
 
   const performSearch = async () => {
 
     setAnimatedClass("animate__slideOutRight");
     const result = searchTerm !== "" ? await searchWord(searchTerm) : undefined;
 
-    setTimeout(() => {
-      
-      setSearchResult(result === undefined ? "none" : result);
-      setAnimatedClass("animate__slideInLeft");
-    }, 80);
+    setTimeout(() => setSearchResult(result === undefined ? "none" : result), 100);
+    setTimeout(() => setAnimatedClass("animate__slideInLeft"), 200);
+
+    WordStore.update(s => { s.searchCount++ });
   }
 
   return (

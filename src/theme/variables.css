@@ -93,13 +93,20 @@ ion-tab-bar {
   border: none;
 }
 
-@media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
    * -------------------------------------------
    */
 
+   ion-modal {
+
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+   }
+
   body {
+    overflow: hidden !important;
     --ion-color-primary: #953cd0;
   --ion-color-primary-rgb: 149,60,208;
   --ion-color-primary-contrast: #ffffff;
@@ -231,4 +238,3 @@ ion-tab-bar {
     --ion-color-step-900: #e7e7e7;
     --ion-color-step-950: #f3f3f3;
   }
-}

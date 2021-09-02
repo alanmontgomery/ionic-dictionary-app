@@ -3,7 +3,8 @@ import { Store } from "pullstate";
 const WordStore = new Store({
     
     favourites: [],
-    popularWords: []
+    popularWords: [],
+    searchCount: 0
 });
 
 export default WordStore;
